@@ -1,79 +1,33 @@
-// import { abi as POOL_ABI } from '@uniswap/v3-core/artifacts/contracts/UniswapV3Pool.sol/UniswapV3Pool.json';
 import Web3 from 'web3';
-import { SwapEventParam, SwapEventResponse } from '../types';
+import { SwapEventParam } from '../types';
 
 class V3PoolSwapEventHandler {
     private web3: Web3;
     constructor() {
         this.web3 = new Web3(process.env.NETWORK_URL as string);
     }
-    handlerEvent = async (event: any, _txn: any): Promise<SwapEventResponse> => {
-        const swapEventIndex = 9;
+    handlerEvent = async (event: any) => {
         try {
             const sender = await this.decodeParameter('address', event.topics[1]);
             const recipient = await this.decodeParameter('address', event.topics[2]);
-
-            // const inputs = POOL_ABI[swapEventIndex];
-            /*
-                inputs are taken from above ABI
-            */
-            const inputs = [
-                {
-                    "indexed": false,
-                    "internalType": "int256",
-                    "name": "amount0",
-                    "type": "int256"
-                },
-                {
-                    "indexed": false,
-                    "internalType": "int256",
-                    "name": "amount1",
-                    "type": "int256"
-                },
-                {
-                    "indexed": false,
-                    "internalType": "uint160",
-                    "name": "sqrtPriceX96",
-                    "type": "uint160"
-                },
-                {
-                    "indexed": false,
-                    "internalType": "uint128",
-                    "name": "liquidity",
-                    "type": "uint128"
-                },
-                {
-                    "indexed": false,
-                    "internalType": "int24",
-                    "name": "tick",
-                    "type": "int24"
-                }
-            ];
+            const inputs = this.getSwapABI();
 
             const decodedResult = await this.decodeLog(inputs, event.data, event.topics);
-            const amount0 = decodedResult.amount0;
-            const amount1 = decodedResult.amount1;
-            const sqrtPriceX96 = decodedResult.sqrtPriceX96;
-            const liquidity = decodedResult.liquidity;
-            const tick = decodedResult.tick;
 
             const swapEventParam: SwapEventParam = {
                 sender: String(sender),
                 recipient: String(recipient),
-                amount0: amount0,
-                amount1: amount1,
-                sqrtPriceX96: sqrtPriceX96,
-                liquidity: liquidity,
-                tick: tick
+                amount0: decodedResult.amount0,
+                amount1: decodedResult.amount1,
+                sqrtPriceX96: decodedResult.sqrtPriceX96,
+                liquidity: decodedResult.liquidity,
+                tick: decodedResult.tick
             }
-            return {
-                data: swapEventParam
-            }
+            console.log(`swapEventParam : ${JSON.stringify(swapEventParam, null, 4)}`);
+
+            // TODO : write logic to trigger 
         } catch (e) {
             console.log(`exception while decoding : ${e}`)
-            return {
-                error: 'Error while parsing event'
-            }
         }
     }
 
@@ -120,6 +74,41 @@ class V3PoolSwapEventHandler {
             throw new Error('Invalid transaction hash');
         }
     };
+
+    getSwapABI = () => {
+        return [
+            {
+                "indexed": false,
+                "internalType": "int256",
+                "name": "amount0",
+                "type": "int256"
+            },
+            {
+                "indexed": false,
+                "internalType": "int256",
+                "name": "amount1",
+                "type": "int256"
+            },
+            {
+                "indexed": false,
+                "internalType": "uint160",
+                "name": "sqrtPriceX96",
+                "type": "uint160"
+            },
+            {
+                "indexed": false,
+                "internalType": "uint128",
+                "name": "liquidity",
+                "type": "uint128"
+            },
+            {
+                "indexed": false,
+                "internalType": "int24",
+                "name": "tick",
+                "type": "int24"
+            }
+        ];
+    }
 
 }
 export const swapEventHandler = new V3PoolSwapEventHandler();

@@ -7,8 +7,3 @@ export type SwapEventParam = {
     liquidity: string;
     tick: string;
 }
-
-export type SwapEventResponse = {
-    data?: SwapEventParam;
-    error?: string;
-}

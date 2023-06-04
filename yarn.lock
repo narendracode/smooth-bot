@@ -9260,7 +9260,7 @@ web3-shh@1.10.0:
     web3-core-subscriptions "1.10.0"
     web3-net "1.10.0"
 
-web3-utils@1.10.0:
+web3-utils@1.10.0, web3-utils@^1.10.0:
   version "1.10.0"
   resolved "https://registry.yarnpkg.com/web3-utils/-/web3-utils-1.10.0.tgz#ca4c1b431a765c14ac7f773e92e0fd9377ccf578"
   integrity sha512-kSaCM0uMcZTNUSmn5vMEhlo02RObGNRRCkdX0V9UTAU0+lrvn0HSaudyCo6CQzuXUsnuY2ERJGCGPfeWmv19Rg==

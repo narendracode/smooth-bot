@@ -3,7 +3,7 @@ import Web3 from 'web3';
 import { AbiItem } from 'web3-utils';
 import { abi as POOL_ABI } from '@uniswap/v3-core/artifacts/contracts/UniswapV3Pool.sol/UniswapV3Pool.json';
 
-const web3 = new Web3(process.env.NETWORK_URL as string);
+const web3 = new Web3(process.env.NETWORK_URL_WSS as string);
 const poolContractAddress = process.env.POOL_ADDRESS as string;
 
 export const setupListener = async () => {

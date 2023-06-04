@@ -1,0 +1,23 @@
+{
+  "name": "@smooth/commons",
+  "version": "1.0.0-alpha",
+  "description": "placeholder",
+  "main": "dist/index.js",
+  "scripts": {
+    "build": "run-s clean build:tsc",
+    "build:tsc": "tsc -b",
+    "clean": "rm -rf coverage dist tsconfig.tsbuildinfo",
+    "lint": "eslint .",
+    "lint:fix": "yarn lint --fix",
+    "test": "jest",
+    "test:watch": "jest --watch"
+  },
+  "dependencies": {},
+  "files": [
+    "dist"
+  ],
+  "publishConfig": {
+    "access": "public"
+  },
+  "license": "MIT"
+}

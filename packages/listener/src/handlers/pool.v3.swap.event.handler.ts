@@ -26,6 +26,14 @@ class V3PoolSwapEventHandler {
             console.log(`swapEventParam : ${JSON.stringify(swapEventParam, null, 4)}`);
 
             // TODO : write logic to trigger 
+            /*
+            - Read X
+            - Read Y
+            - Feed X and Y in formula
+            - Decide whether to mint or burn
+            - Mint / Burn
+            - Execute the trade
+            */
         } catch (e) {
             console.log(`exception while decoding : ${e}`)
         }

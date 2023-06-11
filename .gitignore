@@ -23,3 +23,6 @@ yarn-error.log*
 .env
 
 packages/*/.env
+packages/contracts/artifacts
+
+solidity-files-cache.json

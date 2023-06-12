@@ -12,7 +12,8 @@
     "forceConsistentCasingInFileNames": true,
     "module": "commonjs",
     "noEmit": false,
-    "composite": true
+    "composite": true,
+    "resolveJsonModule": true,
   },
   "include": ["src"],
   "files": ["./hardhat.config.ts"],

@@ -16,11 +16,17 @@ task("accounts", "Prints the list of accounts", async (taskArgs, hre) => {
 
 
 const config: HardhatUserConfig = {
-  defaultNetwork: "sepolia",
+  defaultNetwork: "goerli",
   solidity: "0.8.18",
   networks: {
     sepolia: {
       url: `${process.env.ALCHEMY_URL_SEPOLIA}`,
+      accounts: [
+        `${process.env.PRIVATE_KEY}`
+      ]
+    },
+    goerli: {
+      url: `${process.env.ALCHEMY_URL_GOERLI}`,
       accounts: [
         `${process.env.PRIVATE_KEY}`
       ]
